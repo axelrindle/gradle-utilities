@@ -1,0 +1,20 @@
+// A custom Copy task for use in Bukkit/Spigot/etc. projects.
+// Copies an assembled JAR file in the form "<project>-<version>.jar" to the
+// directory specified with the env variable PLUGINS_DIR.
+// If the variable is not set, the task is skipped.
+
+// Example configuration to run after ':assemble'
+//
+// assemble {
+//     finalizedBy copyToServer
+// }
+
+task copyToServer(type: Copy) {
+    def dir = System.getenv("PLUGINS_DIR")
+    if (dir == null) return true
+
+    from("build/libs") {
+        include "${project.name}-${project.version}.jar"
+    }
+    into dir
+}

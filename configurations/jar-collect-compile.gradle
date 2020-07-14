@@ -1,0 +1,7 @@
+// Collects compile dependencies and includes that into the final JAR file
+
+jar {
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
